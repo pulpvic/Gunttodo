@@ -15,7 +15,9 @@ struct ContentView: View {
             SidebarView(store: store, selection: $scope)
                 .frame(width: 172)
 
-            Divider()
+            Rectangle()
+                .fill(.white.opacity(0.08))
+                .frame(width: 1)
 
             ManagementWorkspaceView(
                 tasks: visibleTasks,

@@ -39,7 +39,7 @@ struct TitlebarAddTaskAccessory: NSViewRepresentable {
 
             uninstall()
 
-            let container = NSView(frame: NSRect(x: 0, y: 0, width: 150, height: 46))
+            let container = NSView(frame: NSRect(x: 0, y: 0, width: 330, height: 46))
             container.translatesAutoresizingMaskIntoConstraints = false
 
             let button = CircularTitlebarAddButton()
@@ -48,14 +48,24 @@ struct TitlebarAddTaskAccessory: NSViewRepresentable {
             button.action = #selector(addTask)
             button.toolTip = "新建任务"
 
+            let titleLabel = NSTextField(labelWithString: "Gunttodo")
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            titleLabel.font = .systemFont(ofSize: 15, weight: .semibold)
+            titleLabel.textColor = .secondaryLabelColor
+            titleLabel.lineBreakMode = .byTruncatingTail
+
             container.addSubview(button)
+            container.addSubview(titleLabel)
             NSLayoutConstraint.activate([
-                container.widthAnchor.constraint(equalToConstant: 150),
+                container.widthAnchor.constraint(equalToConstant: 330),
                 container.heightAnchor.constraint(equalToConstant: 46),
                 button.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 102),
                 button.centerYAnchor.constraint(equalTo: container.centerYAnchor),
                 button.widthAnchor.constraint(equalToConstant: 30),
-                button.heightAnchor.constraint(equalToConstant: 30)
+                button.heightAnchor.constraint(equalToConstant: 30),
+                titleLabel.leadingAnchor.constraint(equalTo: button.trailingAnchor, constant: 22),
+                titleLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+                titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor)
             ])
 
             let accessory = NSTitlebarAccessoryViewController()
@@ -108,10 +118,13 @@ private final class CircularTitlebarAddButton: NSControl {
         ).insetBy(dx: 0.5, dy: 0.5)
 
         let circle = NSBezierPath(ovalIn: circleRect)
-        (isPressed ? NSColor.controlAccentColor.shadow(withLevel: 0.18) : NSColor.controlAccentColor)?.setFill()
+        let fillColor = isPressed
+            ? NSColor.white.withAlphaComponent(0.16)
+            : NSColor.white.withAlphaComponent(0.10)
+        fillColor.setFill()
         circle.fill()
 
-        NSColor.white.withAlphaComponent(0.35).setStroke()
+        NSColor.white.withAlphaComponent(0.14).setStroke()
         circle.lineWidth = 1
         circle.stroke()
 
@@ -123,7 +136,7 @@ private final class CircularTitlebarAddButton: NSControl {
         plus.move(to: NSPoint(x: bounds.midX, y: bounds.midY - 5))
         plus.line(to: NSPoint(x: bounds.midX, y: bounds.midY + 5))
 
-        NSColor.white.setStroke()
+        NSColor.secondaryLabelColor.setStroke()
         plus.stroke()
     }
 
