@@ -4,6 +4,17 @@ Gunttodo is a lightweight macOS task tracker focused on keeping the current work
 
 ## Download And Run On A Mac
 
+For the no-command-line version, open the latest GitHub release and download:
+
+- `Gunttodo-macOS.dmg`
+
+Then open the DMG, drag `Gunttodo.app` to Applications, and double-click it.
+
+This local build is ad-hoc signed, not Apple notarized. If macOS blocks it the
+first time, right-click `Gunttodo.app`, choose Open, then confirm.
+
+## Build From Source
+
 ```bash
 git clone https://github.com/pulpvic/Gunttodo.git
 cd Gunttodo
@@ -11,6 +22,17 @@ cd Gunttodo
 ```
 
 Gunttodo is a local SwiftUI/AppKit app. The script builds and launches a fresh `.app` bundle without creating an installer.
+
+To create distributable files locally:
+
+```bash
+./script/package_app.sh
+```
+
+This creates:
+
+- `release/Gunttodo-macOS.dmg`
+- `release/Gunttodo-macOS.zip`
 
 ## Run
 
